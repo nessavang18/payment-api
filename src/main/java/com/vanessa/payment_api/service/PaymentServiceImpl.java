@@ -38,12 +38,13 @@ public class PaymentServiceImpl implements PaymentService{
                 .currency(request.currency())
                 .createdAt(LocalDate.now())
                 .updateAt(LocalDate.now())
+                .status(PAYMENT_CREATED_PREFIX)
                 .build();
 
 
         repository.save(newPayment);
         
-        log.info("Payment {} is {} ", PAYMENT_CREATED_PREFIX);
+        log.info("Payment {} is {} ", PAYMENT_PREFIX, PAYMENT_CREATED_PREFIX);
 
         return  buildPaymentResponse(PAYMENT_CREATED_PREFIX, newPayment);
                         
