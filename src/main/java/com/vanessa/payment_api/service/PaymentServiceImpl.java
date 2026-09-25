@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PaymentServiceImpl implements PaymentService{
 
     private final PaymentRepository repository;
-    private static final String PAYMENT_PREFIX = "REF-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    private static final String PAYMENT_PREFIX = "REF-";
     private static final String PAYMENT_CREATED_PREFIX = "CREATED";
 
     public PaymentServiceImpl(PaymentRepository repository) {
@@ -31,8 +31,11 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     public PaymentResponse createPayment(PaymentRequest request) {
 
+         String paymentReference = PAYMENT_PREFIX 
+            + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+
         Payment newPayment = Payment.builder()
-                .paymentReference(PAYMENT_PREFIX)
+                .paymentReference(paymentReference)
                 .customerId(request.customerId())
                 .amount(request.amount())
                 .currency(request.currency())
